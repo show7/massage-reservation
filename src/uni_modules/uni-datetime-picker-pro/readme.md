@@ -1,0 +1,36 @@
+
+
+> 说明
+
+
+### 本插件基于 [uni-datetime-picker](https://uniapp.dcloud.io/component/uniui/uni-datetime-picker.html#api) 组件进行升级，
+### 升级新功能如下
+- isIcons  左侧图标是否显示
+- inputStyle 自定义输入框的样式 如修改背景色
+
+``` vue
+<uni-datetime-picker-pro :isIcons="false" inputStyle="background-color:#f5f5f5;"  />
+```
+
+
+> 更多详细文档请移步至 [uni-datetime-picker](https://uniapp.dcloud.io/component/uniui/uni-datetime-picker.html#api) 
+
+
+> `重要通知：组件升级更新 2.0.0 后，支持日期+时间范围选择，组件 ui 将使用日历选择日期，ui 变化较大，同时支持 PC 和 移动端。此版本不向后兼容，不再支持单独的时间选择（type=time）及相关的 hide-second 属性（时间选可使用内置组件 picker）。若仍需使用旧版本，可在插件市场下载*非uni_modules版本*，旧版本将不再维护`
+
+## DatetimePicker 时间选择器
+
+> **组件名：uni-datetime-picker-pro**
+> 代码块： `uDatetimePicker`
+
+
+该组件的优势是，支持**时间戳**输入和输出（起始时间、终止时间也支持时间戳），可**同时选择**日期和时间。
+
+若只是需要单独选择日期和时间，不需要时间戳输入和输出，可使用原生的 picker 组件。
+
+**_点击 picker 默认值规则：_**
+
+- 若设置初始值 value, 会显示在 picker 显示框中
+- 若无初始值 value，则初始值 value 为当前本地时间 Date.now()， 但不会显示在 picker 显示框中
+
+### [详细查看文档](https://uniapp.dcloud.io/component/uniui/uni-datetime-picker)

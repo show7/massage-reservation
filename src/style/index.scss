@@ -1,0 +1,38 @@
+// 公共样式文件
+@forward "text.scss";
+@forward "color.scss";
+@forward "layout.scss";
+
+page {
+  height: 100%;
+}
+view {
+  box-sizing: border-box;
+}
+// ios 底部安全区域
+.safe-bottom {
+  padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
+}
+// tabbar 页面内容
+.tabbar-page-content {
+  padding-bottom: 48px;
+}
+.primary-submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 632.55rpx;
+  height: 112.96rpx;
+  border-radius: 112.96rpx;
+  color: #fff;
+  font-size: 37.5rpx;
+  background-color: #25ba1b;
+}
+.input-readonly {
+  background-color: #f5f5f5 !important;
+  color: #333 !important;
+}
+.uni-picker {
+  font-size: 16px !important;
+}

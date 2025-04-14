@@ -1,0 +1,63 @@
+@use "variables.scss" as vars;
+
+$color-alias-map: (
+  primary: vars.$color-primary,
+  danger: vars.$color-danger,
+  warning: vars.$color-warning,
+  success: vars.$color-success,
+  info: vars.$color-info,
+  disabled: vars.$color-disabled,
+  black: vars.$color-black,
+  white: vars.$color-white,
+  black-little: vars.$color-black-little,
+  black-little2: vars.$color-black-little2,
+  grey-light: vars.$color-grey-light,
+  grey-light-2: vars.$color-grey-light-2,
+  grey-light-3: vars.$color-grey-light-3,
+  grey-light-4: vars.$color-grey-light-4,
+  grey-light-5: vars.$color-grey-light-5,
+  grey-dark: vars.$color-grey-dark,
+  grey-shallow: vars.$color-grey-shallow,
+  grey-secondary: vars.$color-grey-secondary,
+  grey-little: vars.$color-grey-little,
+  blue-stable: vars.$color-blue-stable,
+  blue-little: vars.$color-blue-little,
+  blue: vars.$color-blue,
+  yellow: vars.$color-yellow,
+  orange: vars.$color-orange,
+  orange-efficiency: vars.$color-orange-efficiency,
+  blue-light: vars.$color-blue-light,
+  blue-light-2: vars.$color-blue-light-2,
+  blue-light-3: vars.$color-blue-light-3,
+  yellow-dark: vars.$color-yellow-dark,
+  red-warn: vars.$color-red-warn,
+  green-primary: vars.$color-green-primary,
+  green-light: vars.$color-green-light,
+  green-light-2: vars.$color-green-light-2,
+  purple-mystic: vars.$color-purple-mystic,
+  blue-silver-frost: vars.$color-blue-silver-frost,
+);
+
+@each $key, $value in $color-alias-map {
+  .text-#{"" + $key} {
+    color: $value;
+  }
+  .bg-#{"" + $key} {
+    background-color: $value;
+  }
+  .border-t-#{"" + $key} {
+    border-top: 1rpx solid $value;
+  }
+  .border-r-#{"" + $key} {
+    border-right: 1rpx solid $value;
+  }
+  .border-b-#{"" + $key} {
+    border-bottom: 1rpx solid $value;
+  }
+  .border-l-#{"" + $key} {
+    border-left: 1rpx solid $value;
+  }
+  .border-#{"" + $key} {
+    border: 1rpx solid $value;
+  }
+}

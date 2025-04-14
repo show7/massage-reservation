@@ -1,0 +1,54 @@
+/*
+	主题 统一配置色彩
+*/
+//公共颜色  /Little Black
+$color-primary: #36b569; //主色/绿色
+$color-danger: #ff0000; //辅助色/警告色
+$color-warning: #ff8c00; //辅助色/警告色
+$color-success: #36b569; //辅助色/成功色
+$color-info: #808080; //辅助色/信息色#808080
+$color-disabled: #cccccc; //辅助色/禁用色
+
+$color-white: #ffffff; //中性色/白色
+$color-black: #000000; //中性色/黑色
+$color-black-little: #333336; //中性色/小黑
+$color-black-little2: #6c706e; //中性色/次黑
+$color-grey-light: #999999; //中性色/浅灰
+$color-grey-light-2: #dddddd; //中性色/浅灰
+$color-grey-light-3: #a6a6a6; //中性色/浅灰
+$color-grey-light-4: #f8f8f8; //中性色/浅灰
+$color-grey-light-5: #e5e5e5; //中性色/浅灰
+$color-grey-dark: #7a7a88; //中性色/深灰
+$color-grey-little: #aeaebb; // 中性色/灰色
+$color-grey-secondary: #e8e8ee; //中性色/次浅灰
+$color-grey-shallow: #f3f3f5; //中性色/极浅灰
+$color-blue-stable: #316bff; //主色/稳定蓝
+$color-blue-little: #0050e7; //主色/小蓝
+$color-blue: #2a82e4; //主色/天蓝
+$color-blue-light: #4382dd; //主色/浅蓝
+$color-blue-light-2: #d0e3ff; //主色/浅蓝2
+$color-blue-light-3: #f5f7fb; // 浅蓝3
+$color-blue-light-4: #316bff19; //主色/稳定蓝 0.1
+$color-yellow: #ffeb3b; //主色/稳定蓝
+$color-yellow-dark: #ffa800; //辅助色/深黄
+$color-orange: #ff8d1a; //主色/橙色
+$color-orange-efficiency: #ff4408; //主色/效率橙
+$color-orange-extend: #ff7a00; //主色/延伸橙
+$color-red-warn: #ff2333; //辅助色/警告色
+$color-green-primary: #36b569; //主题色/绿色
+$color-green-light-2: #d8ebe7; //浅绿
+$color-green-light: #eff8f6; //主题色/绿色
+$color-purple-mystic: #8e2aee; //辅助色/神秘紫
+$color-blue-silver-frost: #d0d0dd; // 银蓝霜
+//页面背景色
+$page-bg: var(--page-bg, #ffffff);
+// 棕色主题
+
+// shadow-color:$brown-shadow,,,,,,,,,,,,,,,,,,,,,,,
+
+// $brown-shadow: #c8c7cc;
+/*
+	需要在js 中使用的css 导出
+		APP 无法使用
+		h5 微信小程序有值
+*/

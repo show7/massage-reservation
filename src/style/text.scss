@@ -1,0 +1,128 @@
+@use "sass:map";
+/**
+ * font-size  文本大小
+ * text-12 text-14 text-16 text-18 ...  text-80
+ * 单位 rpx
+ */
+$size: 12;
+@while $size <=80 {
+  .text-#{$size} {
+    font-size: $size * 1rpx;
+  }
+  $size: $size + 2;
+}
+
+/**
+ * 文本对其方式
+ * font-thin font-extralight font-light ...
+ */
+$font-weight-map: (
+  thin: 100,
+  extralight: 200,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900,
+);
+@each $key, $value in $font-weight-map {
+  .font-#{"" + $key} {
+    font-weight: $value;
+  }
+}
+/**
+ * 文本对其方式
+ * text-left text-center text-right text-justify text-start text-end
+ */
+$text-align-map: (
+  left: left,
+  center: center,
+  right: right,
+  justify: justify,
+  start: start,
+  end: end,
+);
+@each $key, $value in $text-align-map {
+  .text-#{"" + $key} {
+    text-align: $value;
+  }
+}
+
+/**
+ * 文本装饰
+ * underline overline ...
+ */
+$text-decoration-map: (
+  underline: underline,
+  overline: overline,
+  line-through: line-through,
+  justify: justify,
+  "no-underline": no-underline,
+  "strikethrough": strikethrough,
+);
+@each $key, $value in $text-decoration-map {
+  .#{$key} {
+    text-decoration-line: $value;
+  }
+}
+
+@mixin overflow-ellipsis($line: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+/**
+ * 文本超出X行显示...
+ * text-ellipsis-1 text-ellipsis-2 ...  text-ellipsis-5 
+ */
+$line: 1;
+@while $line <=5 {
+  .text-ellipsis-#{$line} {
+    @include overflow-ellipsis($line);
+  }
+  $line: $line + 1;
+}
+//文本溢出
+$text-overflow-alia-map: (
+  truncate: (
+    overflow: hidden,
+    text-overflow: ellipsis,
+    white-space: nowrap,
+  ),
+  overflow-ellipsis: (
+    text-overflow: ellipsis,
+  ),
+  overflow-clip: (
+    text-overflow: clip,
+  ),
+);
+@each $key, $values in $text-overflow-alia-map {
+  .#{$key} {
+    @each $item, $value in map.get($text-overflow-alia-map, $key) {
+      #{ $item }: $value;
+    }
+  }
+}
+/**
+ * Whitespace...
+ * whitespace-pre 。。。
+ */
+$text-overflow-alia-map: (
+  normal,
+  nowrap,
+  pre,
+  pre-line,
+  pre-wrap,
+  break-spaces
+);
+@each $key in $text-overflow-alia-map {
+  .whitespace-#{$key} {
+    white-space: $key;
+  }
+}
