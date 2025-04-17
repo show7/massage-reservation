@@ -40,7 +40,7 @@ const state = reactive({
   cancelButtonText: "取消",
   confirmButtonText: "确定",
   cancelButtonColor: "#cccccc",
-  confirmButtonColor: "#36b569",
+  confirmButtonColor: "#1296db",
   showCancelButton: true,
   onConfirm: () => {},
   onCancel: () => {},

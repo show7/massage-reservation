@@ -51,10 +51,10 @@ request.setResponseInterceptor((res) => {
     });
   } else {
     uni.showToast({
-      title: `${res.data.state}: ${res.data.msg}`,
+      title: `${res.data.message}`,
       icon: "none",
     });
-    return Promise.reject(`${res.data.state}: ${res.data.msg}`);
+    return Promise.reject(`${res.data.state}: ${res.data.message}`);
   }
 });
 

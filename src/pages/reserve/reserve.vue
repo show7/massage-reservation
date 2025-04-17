@@ -80,6 +80,7 @@
       </view>
       <view
         class="legend-item my-appointment text-white px-14 py-6 text-24 rounded-10"
+        @click="goPage('reserveList')"
       >
         <text>我的预约</text>
       </view>
@@ -153,8 +154,9 @@
   </Dialog>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { onLoad } from "@dcloudio/uni-app";
+import { Native, JUMP_TYPE } from "@/utils";
 import request from "@/api";
 const state = reactive({
   userInfo: {},
@@ -257,6 +259,7 @@ const changeDate = () => {
 };
 // 查询预约时间
 const search = async () => {
+  uni.showLoading();
   try {
     const { data = [] } = await request.sendRequestByKey("GET_WORK_DETAIL", {
       ...formData,
@@ -264,7 +267,9 @@ const search = async () => {
     console.log("请求成功：", data);
     state.appointmentList = data;
     //state.projectList = data;
+    uni.hideLoading();
   } catch (err) {
+    uni.hideLoading();
     console.error("请求失败：", err);
   }
 
@@ -286,9 +291,12 @@ const handleAppointmentClick = (item) => {
   reservation(item);
 };
 
-// 返回上一页
-const goBack = () => {
-  uni.navigateBack();
+const goPage = (key: string) => {
+  const pageMap = {
+    reserveList: "/pages/user/reserveList",
+    login: "/pages/login/index",
+  };
+  Native.push(JUMP_TYPE.SELF, { url: pageMap[key as keyof typeof pageMap] });
 };
 const getProjectData = async () => {
   try {

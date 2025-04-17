@@ -7,7 +7,7 @@
     />
 
     <view class="user-info_wrap flex flex-col gap-20 p-20">
-      <view class="flex justify-between items-center" @click="goPage('login')">
+      <view class="flex justify-between items-center" @click="avatarClick">
         <view class="flex items-center gap-20">
           <image
             class="user-info__avatar"
@@ -79,14 +79,11 @@ const systemStore = useSystemStore();
 //getUserInfo
 const { userInfo } = storeToRefs(userStore);
 const state = reactive({ menuName: "", placeholder: "" });
-const formData = reactive({
-  orderId: "",
-  menuId: "",
-  canteenId: "",
-  starrating: 0,
-  remark: "",
-});
 
+const avatarClick = () => {
+  if (userInfo.value.token) return;
+  goPage("login");
+};
 const goPage = (key: string) => {
   const pageMap = {
     reserveList: "/pages/user/reserveList",
