@@ -72,7 +72,9 @@
 
 <script setup>
 import { ref, onUnmounted } from "vue";
-
+import request from "@/api";
+import { useSystemStore } from "@/store";
+const systemStore = useSystemStore();
 // 定义响应式数据
 const activeTab = ref("login");
 const phone = ref("");
@@ -136,14 +138,22 @@ const handleSubmit = () => {
 };
 
 // 登录处理
-const handleLogin = () => {
-  if (!phone.value || !verifyCode.value) {
-    uni.showToast({
-      title: "请填写完整信息",
-      icon: "none",
-    });
-    return;
-  }
+const handleLogin = async () => {
+  // try {
+  //   const data = await request.sendRequestByKey("LOGIN");
+  //   console.log("登陆请求成功：", data);
+  // } catch (err) {
+  //   console.error("请求失败：", err);
+  // }
+  await systemStore.logIn();
+
+  // if (!phone.value || !verifyCode.value) {
+  //   uni.showToast({
+  //     title: "请填写完整信息",
+  //     icon: "none",
+  //   });
+  //   return;
+  // }
 
   // TODO: 调用登录接口
 };
