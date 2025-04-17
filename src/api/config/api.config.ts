@@ -71,6 +71,12 @@ const API_CONFIG: ApiConfigItem[] = [
     desc: "我的预约列表",
     key: "CANCEL_RESERVATION",
   },
+  {
+    url: "/app/cust/sendSms",
+    methods: "GET",
+    desc: "发送验证码",
+    key: "SEND_SMS",
+  },
 ];
 
 export default API_CONFIG;
