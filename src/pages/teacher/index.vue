@@ -8,6 +8,7 @@
         class="bg-white py-20 px-30 rounded-20 text-24 box-border"
         v-for="(item, i) in state.tabData"
         :key="i"
+        @click="playAudio(item.outBytes, i)"
       >
         <view
           class="flex-th-td-item flex justify-between items-center text-24 border-b-info pb-14"
@@ -167,11 +168,11 @@ const getData = async () => {
 
   // 当页数据加载完成后，默认从第一条开始播放录音
   if (state.tabData.length > 0) {
-    playAudio(state.tabData[0].outBytes, 0);
+    playAudio(state.tabData[0].outBytes, 0, true);
   }
 };
 
-const playAudio = (base64Audio: string, index: number) => {
+const playAudio = (base64Audio: string, index: number, isPause = false) => {
   // 停止当前正在播放的音频
   if (currentAudio.value) {
     currentAudio.value.pause();
@@ -196,9 +197,9 @@ const playAudio = (base64Audio: string, index: number) => {
 
     // 当音频播放结束，检查是否为当前页最后一条音频
     audio.addEventListener("ended", () => {
-      if (index < state.tabData.length - 1) {
+      if (isPause && index < state.tabData.length - 1) {
         // 播放下一条音频
-        playAudio(state.tabData[index + 1].outBytes, index + 1);
+        playAudio(state.tabData[index + 1].outBytes, index + 1, isPause);
       } else {
         // 当前页播放完后结束
         currentAudio.value = null;
