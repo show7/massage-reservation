@@ -5,9 +5,9 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
-      "path": "pages/teacher/index",
+      "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "预约",
+        "navigationBarTitleText": "首页",
         "navigationStyle": "custom"
       }
     },
@@ -32,6 +32,13 @@
       }
     },
     {
+      "path": "pages/teacher/index",
+      "style": {
+        "navigationBarTitleText": "预约",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/login/index",
       "style": {
         "navigationBarTitleText": "登录",
@@ -39,13 +46,6 @@
       }
     },
 
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "首页",
-        "navigationStyle": "custom"
-      }
-    },
     {
       "path": "pages/user/index",
       "style": {

@@ -5,23 +5,23 @@
       v-if="state.tabData && state.tabData.length"
     >
       <view
-        class="bg-white py-24 px-30 rounded-20 text-24 box-border"
+        class="bg-white py-20 px-30 rounded-20 text-24 box-border"
         v-for="(item, i) in state.tabData"
         :key="i"
       >
         <view
           class="flex-th-td-item flex justify-between items-center text-24 border-b-info pb-14"
         >
-          <view class="text-left text-40 text-black-little font-bold">
+          <view class="text-left text-24 text-black-little font-bold">
             {{ item.projectName }}
           </view>
-          <view class="text-center text-40 text-black-little">
+          <view class="text-center text-24 text-black-little">
             {{ item.workDate }}
           </view>
         </view>
 
         <view
-          class="flex justify-between items-center text-black text-40 py-10"
+          class="flex justify-between items-center text-black text-24 py-10"
         >
           <view class="flex-col-w-1 text-left"> 开始时间：</view>
           <view class="flex-col-w-3 text-right text-black-little">
@@ -29,7 +29,7 @@
           </view>
         </view>
         <view
-          class="flex justify-between items-center text-black text-40 py-10"
+          class="flex justify-between items-center text-black text-24 py-10"
         >
           <view class="flex-col-w-1 text-left">结束时间：</view>
           <view class="flex-col-w-3 text-right text-black-little">
@@ -38,7 +38,7 @@
         </view>
 
         <view
-          class="flex justify-between items-center text-black text-40 py-10"
+          class="flex justify-between items-center text-black text-24 py-10"
         >
           <view class="flex-col-w-1 text-left">服务时长：</view>
           <view class="flex-col-w-3 text-right text-black-little">
@@ -46,7 +46,7 @@
           </view>
         </view>
 
-        <view
+        <!-- <view
           class="flex-th-td-item flex justify-end items-center text-black-little text-24 border-t-info my-14 pt-14"
         >
           <view
@@ -55,7 +55,7 @@
           >
             播放
           </view>
-        </view>
+        </view> -->
       </view>
     </view>
     <view v-if="!state.tabData.length && status !== 'loading'">
