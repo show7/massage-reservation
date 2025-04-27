@@ -11,6 +11,7 @@
         "navigationStyle": "custom"
       }
     },
+    
     {
       "path": "pages/reserve/index",
       "style": {
@@ -18,7 +19,18 @@
         "navigationStyle": "custom"
       }
     },
-
+    {
+      "path": "pages/family/index",
+      "style": {
+        "navigationBarTitleText": "我的家人"
+      }
+    },
+    {
+      "path": "pages/family/edit",
+      "style": {
+        "navigationBarTitleText": "编辑家人信息"
+      }
+    },
     {
       "path": "pages/reserve/reserve",
       "style": {
@@ -29,6 +41,18 @@
       "path": "pages/user/reserveList",
       "style": {
         "navigationBarTitleText": "我的预约列表"
+      }
+    },
+    {
+      "path": "pages/user/reserveInfo",
+      "style": {
+        "navigationBarTitleText": "预约详情"
+      }
+    },
+    {
+      "path": "pages/user/dpInfo",
+      "style": {
+        "navigationBarTitleText": "预约描述"
       }
     },
     {
@@ -62,7 +86,7 @@
   },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "易悦智慧食堂",
+    "navigationBarTitleText": "按摩",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   }

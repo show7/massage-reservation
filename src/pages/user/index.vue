@@ -44,6 +44,15 @@
             </text>
             <text class="iconfont icon-xiangqing text-38 text-info"></text>
           </view>
+            <view
+            class="flex justify-between items-center border-b-grey-light-4 py-14"
+            @click="goPage('family')"
+          >
+            <text class="iconfont icon-fankuijianyi text-34 text-primary">
+              <text class="text-black-little ml-20"> 我的家人 </text>
+            </text>
+            <text class="iconfont icon-xiangqing text-38 text-info"></text>
+          </view>
           <view
             class="flex justify-between items-center border-b-grey-light-4 py-14"
             @click="goPage('login')"
@@ -53,6 +62,7 @@
             </text>
             <text class="iconfont icon-xiangqing text-38 text-info"></text>
           </view>
+
           <view
             class="flex justify-between items-center border-b-grey-light-4 py-14"
             @click="systemStore.logOut(false)"
@@ -88,6 +98,7 @@ const goPage = (key: string) => {
   const pageMap = {
     reserveList: "/pages/user/reserveList",
     login: "/pages/login/index",
+    family: "/pages/family/index",
   };
   Native.push(JUMP_TYPE.SELF, { url: pageMap[key as keyof typeof pageMap] });
 };
