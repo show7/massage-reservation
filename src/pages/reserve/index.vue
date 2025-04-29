@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="container" :style="{ paddingTop: statusBarHeight }">
     <!-- 顶部标题 -->
     <view class="header">
       <text class="title">全部服务</text>
@@ -46,11 +46,11 @@
 </template>
 
 <script setup>
-import { onLoad } from "@dcloudio/uni-app";
 import OnlineServices from "./components/OnlineServices/index.vue";
 import PediatricConditioning from "./components/PediatricConditioning/index.vue";
 import LocationStoreList from "./components/LocationStoreList/index.vue";
 import request from "@/api";
+import { JUMP_TYPE, Native, statusBarHeight } from "@/utils";
 const defaultMtniu = [
   { type: "appointment", projectName: "在线预约" },
   { type: "location", projectName: "定位导航" },
@@ -151,15 +151,19 @@ const gradientStyle = computed(() => {
   };
 });
 
-onLoad(async (options) => {
+onBeforeMount(async () => {
   // 获取数据
   // getData();
   // getStoreData();
+  uni.$on("changeReserveActiveIndex", (index) => {
+    nextTick(() => {
+      const activeIndex = index || 0;
+      console.log(activeIndex, "activeIndex");
+      activeIndex &&
+        selectService(state.menuItems[activeIndex], Number(activeIndex));
+    });
+  });
   await getProjectData();
-  const activeIndex = options?.activeIndex;
-  console.log(activeIndex, "activeIndex");
-  activeIndex &&
-    selectService(state.menuItems[activeIndex], Number(activeIndex));
 });
 </script>
 

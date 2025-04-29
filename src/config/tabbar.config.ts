@@ -19,5 +19,7 @@ const allTabBarData = [
     path: "/pages/user/index",
   },
 ];
-
-export { allTabBarData };
+const tabbarPathArray = allTabBarData.map((item) => {
+  return item.path;
+});
+export { allTabBarData, tabbarPathArray };

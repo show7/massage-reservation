@@ -1,5 +1,5 @@
 <template>
-  <view class="quotation-component bg-green-light px-24">
+  <view class="quotation-component bg-green-light px-24 safe-bottom">
     <view
       class="flex flex-col gap-20 pt-50 pb-160"
       v-if="state.tabData && state.tabData.length"

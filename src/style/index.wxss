@@ -41,3 +41,7 @@ view {
 .uni-picker {
   font-size: 16px !important;
 }
+
+.uni-tabbar {
+  display: none;
+}

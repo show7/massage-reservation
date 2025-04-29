@@ -13,8 +13,8 @@ type BaseUrlMap = {
 
 // 定义基础 URL 映射对象
 const BASE_URL_MAP: BaseUrlMap = {
-  [Env.DEV]: "/api",
-  //[Env.DEV]: "http://192.168.3.94:4000",
+  //[Env.DEV]: "/api",
+  [Env.DEV]: "https://ktapp.kangtetuina.com",
   //[Env.DEV]: "http://192.168.3.171:8080",
   [Env.UAT]: "https://ktapp.kangtetuina.com",
   //[Env.UAT]: "http://47.104.228.224",

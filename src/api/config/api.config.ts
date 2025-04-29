@@ -6,6 +6,14 @@ interface ApiConfigItem {
 }
 
 const API_CONFIG: ApiConfigItem[] = [
+  ///app/cust/login
+  {
+    url: "/app/cust/login",
+    methods: "POST",
+    desc: "登陆",
+    key: "LOGIN_WX",
+  },
+
   {
     url: "/app/banner/list",
     methods: "get",

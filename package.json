@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "dev:custom": "uni -p",
+    "serve:wx:dev": "uni -p mp-weixin --mode dev",
+    "serve:wx:uat": "uni -p mp-weixin --mode uat",
+    "build:wx:dev": "uni build -p mp-weixin --mode dev",
+    "build:wx:pro": "uni build -p mp-weixin --mode pro",
     "dev:h5": "uni --mode dev",
     "dev:h5:ssr": "uni --ssr",
     "build:custom": "uni build -p",

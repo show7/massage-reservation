@@ -1,5 +1,22 @@
 <template>
   <view class="page">
+    <!-- #ifdef MP-WEIXIN -->
+    <view class="formbox mt-100">
+      <view class="section">
+        <view class="group_5">
+          <!-- 登录/注册按钮 -->
+          <button
+            class="login-btn"
+            open-type="getPhoneNumber"
+            @getphonenumber="getphonenumber"
+          >
+            一键登陆
+          </button>
+        </view>
+      </view>
+    </view>
+    <!-- #endif -->
+    <!-- #ifdef H5 -->
     <view class="formbox">
       <view class="section">
         <!-- 添加登录/注册切换tab -->
@@ -67,6 +84,7 @@
         </view>
       </view>
     </view>
+    <!-- #endif -->
   </view>
 </template>
 
@@ -74,6 +92,7 @@
 import { ref, onUnmounted } from "vue";
 import request from "@/api";
 import { useSystemStore } from "@/store";
+import { promisiy } from "@/utils";
 const systemStore = useSystemStore();
 // 定义响应式数据
 const activeTab = ref("login");
@@ -180,6 +199,17 @@ const handleRegister = () => {
   }
 
   // TODO: 调用注册接口
+};
+const getphonenumber = async ({ detail: { code: phoneCode = "" } }) => {
+  if (!phoneCode) return;
+  try {
+    const { code }: any = await promisiy(uni.login)({
+      provider: "weixin",
+    });
+    await systemStore.logIn({ phoneCode, code });
+  } catch (error) {
+    console.error(error, "error");
+  }
 };
 
 // 组件销毁时清除定时器

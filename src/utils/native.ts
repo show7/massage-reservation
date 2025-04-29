@@ -1,3 +1,5 @@
+import { tabbarPathArray } from "@/config/tabbar.config";
+const WX_MINI_APP_CONFIG = {};
 //跳转类型 jumpmini:跳小程序,jumpweb:跳web,jumppath:跳小程序内页,jumpapp:跳app,disable:不跳转
 enum JUMP_TYPE {
   MINI = "jumpmini",
@@ -84,7 +86,7 @@ class Native {
             const { tabBarPages = [] } =
               WX_MINI_APP_CONFIG[arg.appId as keyof typeof WX_MINI_APP_CONFIG];
             const path = url.startsWith("/") ? url : `/${url}`;
-            const isTabBarURL = tabBarPages.includes(path);
+            const isTabBarURL = tabbarPathArray.includes(path);
             if (isTabBarURL) {
               //跳转tabbar
               WX.miniProgram.switchTab({
@@ -129,6 +131,14 @@ class Native {
       [JUMP_TYPE.SELF]: {
         // 跳转小程序内页
         handler({ url, ...arg }: JumpSelfParams) {
+          if (tabbarPathArray.includes(url)) {
+            //跳转tabbar页面
+            uni.switchTab({
+              url,
+              ...arg,
+            });
+            return;
+          }
           uni.navigateTo({
             url,
             ...arg,
