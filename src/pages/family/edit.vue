@@ -23,7 +23,9 @@
         :range="genderOptions"
         class="input"
       >
-        {{ genderOptions[genderIndex] || '请选择性别' }}
+      <view :style="{ color: genderIndex != '' ? '#999999' : '#333' }">
+      {{ genderOptions[genderIndex] || '请选择性别' }}
+    </view>
       </picker>
     </view>
 

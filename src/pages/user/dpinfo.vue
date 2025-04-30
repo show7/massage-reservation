@@ -5,6 +5,7 @@
         <text class="label">选择家人</text>
         <picker
           mode="selector"
+          v-if="familyList.length"
           :range="familyList"
           range-key="name"
           @change="onFamilyChange"
@@ -13,6 +14,7 @@
             {{ selectedFamily?.name || '请选择家人' }}
           </view>
         </picker>
+        <button class="add-btn" v-else @click="addMember">添加家人</button>
       </view>
 
       <view class="form-item">
@@ -34,11 +36,12 @@
 // Vue组合式API
 import { ref } from 'vue'
 import { onLoad } from "@dcloudio/uni-app";
+import { Native, JUMP_TYPE } from "@/utils";
 // 家人列表
 const familyList = ref([
-  { name: '爸爸', relation: '父亲' },
-  { name: '妈妈', relation: '母亲' },
-  { name: '宝宝', relation: '儿子' },
+  // { name: '爸爸', relation: '父亲' },
+  // { name: '妈妈', relation: '母亲' },
+  // { name: '宝宝', relation: '儿子' },
 ])
 
 // 当前选择的家人
@@ -51,6 +54,11 @@ const remark = ref('')
 const onFamilyChange = (e) => {
   const index = e.detail.value
   selectedFamily.value = familyList.value[index]
+}
+const addMember = () => {
+   Native.push(JUMP_TYPE.SELF, {
+    url: `/pages/family/edit`,
+  });
 }
 
 // 提交预约
@@ -142,6 +150,23 @@ onLoad(async (options) => {
   transition: all 0.3s ease;
 }
 .submit-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 4rpx 8rpx rgba(102, 177, 255, 0.3);
+}
+.add-btn {
+  width: 90%;
+  margin: 0 auto;
+  height: 70rpx;
+  line-height: 70rpx;
+  background: linear-gradient(135deg, #66b1ff, #409eff);
+  color: #ffffff;
+  font-size: 32rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 16rpx rgba(102, 177, 255, 0.4);
+  display: block;
+  border: none;
+}
+.add-btn:active {
   transform: scale(0.96);
   box-shadow: 0 4rpx 8rpx rgba(102, 177, 255, 0.3);
 }

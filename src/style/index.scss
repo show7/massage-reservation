@@ -39,3 +39,10 @@ view {
 .uni-tabbar {
   display: none;
 }
+.picker-text {
+  color: #000000;
+}
+
+.picker-text.placeholder {
+  color: #999999;
+}
