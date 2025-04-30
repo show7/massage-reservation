@@ -29,39 +29,6 @@ export default defineConfig({
       imports: ["vue", "pinia"], // 自动导入vue、vue-router、pinia 内的部分api
     }),
   ],
-  build: {
-    // 生产环境去除 console
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
-    // 构建输出目录
-    outDir: "dist/build/h5",
-    // 静态资源目录
-    assetsDir: "static",
-    // 打包时生成 sourcemap
-    sourcemap: false,
-    // 自定义 rollup 配置
-    rollupOptions: {
-      output: {
-        // 确保每个 chunk 都有一个唯一的文件名
-        chunkFileNames: "static/js/[name]-[hash].js",
-        entryFileNames: "static/js/[name]-[hash].js",
-        assetFileNames: "static/[ext]/[name]-[hash].[ext]",
-      },
-    },
-    //assetsInlineLimit: 4096 * 1024, // 将小于 4MB 的图片转换成 Base64
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/style/variables.scss" as vars;`,
-      },
-    },
-  },
   server: {
     proxy: {
       // 配置代理规则

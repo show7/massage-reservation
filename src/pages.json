@@ -80,13 +80,24 @@
   ],
   "tabBar": {
     "custom": true,
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black"
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/reserve/index",
+        "text": "预约"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的"
+      }
+    ]
   },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "按摩",
+    "navigationBarTitleText": "康特健康管理有限公司",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   }

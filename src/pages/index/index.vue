@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="container" :style="{ paddingTop: statusBarHeight }">
     <!-- 顶部标题 -->
     <view class="header">
       <text class="title">康特推拿</text>
@@ -28,7 +28,7 @@
         class="service-item"
         v-for="(item, index) in state.kingList"
         :key="index"
-        @click="navigateToService(item.id)"
+        @click="navigateToService(item.id, item)"
       >
         <image :src="item.icon" mode="aspectFit" class="service-icon" />
         <text class="service-name">{{ item.name }}</text>
@@ -58,6 +58,8 @@ import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import request from "@/api";
 import { CDN_BASE_URL } from "@/api/config/BASE_URL";
+import { JUMP_TYPE, Native, statusBarHeight } from "@/utils";
+
 const state = reactive({
   bannerList: [],
   kingList: [],
@@ -86,13 +88,23 @@ const kingList = ref([
     id: 2,
     name: "问诊咨询",
     icon: "/static/images/icon-counselling.png",
-    url: "/pages/reserve/index?activeIndex=2",
+    url: "/pages/reserve/index",
+    JumpParams: {
+      success: () => {
+        uni.$emit("changeReserveActiveIndex", 2);
+      },
+    },
   },
   {
     id: 3,
     name: "定位导航",
     icon: "/static/images/icon-location.png",
-    url: "/pages/reserve/index?activeIndex=1",
+    url: "/pages/reserve/index",
+    JumpParams: {
+      success: () => {
+        uni.$emit("changeReserveActiveIndex", 1);
+      },
+    },
   },
   {
     id: 4,
@@ -106,18 +118,33 @@ const kingList = ref([
     name: "东方广场总店",
     icon: "/static/images/icon-duodao-store.png",
     url: "/pages/reserve/index?activeIndex=4",
+    JumpParams: {
+      success: () => {
+        uni.$emit("changeReserveActiveIndex", 4);
+      },
+    },
   },
   {
     id: 6,
     name: "象山二路旗舰店",
     icon: "/static/images/icon-dongbao-store.png",
-    url: "/pages/reserve/index?activeIndex=5",
+    url: "/pages/reserve/index",
+    JumpParams: {
+      success: () => {
+        uni.$emit("changeReserveActiveIndex", 5);
+      },
+    },
   },
   {
     id: 7,
     name: "小儿调理",
     icon: "/static/images/icon-children-tuina.png",
-    url: "/pages/reserve/index?activeIndex=3",
+    url: "/pages/reserve/index",
+    JumpParams: {
+      success: () => {
+        uni.$emit("changeReserveActiveIndex", 3);
+      },
+    },
   },
   {
     id: 8,
@@ -127,11 +154,12 @@ const kingList = ref([
 ]);
 
 // 导航到服务页面
-const navigateToService = (id) => {
+const navigateToService = (id, item) => {
   const service = kingList.value.find((item) => item.id === id);
   if (service && service.url) {
-    uni.navigateTo({
+    Native.push(JUMP_TYPE.SELF, {
       url: service.url,
+      ...(item.JumpParams ?? {}),
     });
   }
 };
@@ -161,16 +189,14 @@ const getStoreData = async () => {
   }
 };
 const gotoPage = (item, i) => {
-  uni.navigateTo({
-    url: `/pages/reserve/index?activeIndex=${i + 4}`,
+  Native.push(JUMP_TYPE.SELF, {
+    url: `/pages/reserve/index`,
+    success: (success) => {
+      uni.$emit("changeReserveActiveIndex", i + 4);
+    },
   });
 };
-// 导航到分店页面
-const navigateToBranch = (id) => {
-  uni.navigateTo({
-    url: `/pages/branch/detail?id=${id}`,
-  });
-};
+
 onLoad(() => {
   getBannerData();
   getKingData();

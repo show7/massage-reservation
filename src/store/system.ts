@@ -28,7 +28,13 @@ const useSystemStore = defineStore(
 
     const logIn = async (params: any) => {
       try {
-        const { data } = await request.sendRequestByKey("LOGIN", params);
+        // #ifdef MP-WEIXIN
+        const URL = "LOGIN_WX";
+        // #endif
+        // #ifdef H5
+        const URL = "LOGIN";
+        // #endif
+        const { data } = await request.sendRequestByKey(URL, params);
         console.log("登录成功：", data);
         Storage.set("USER_TOKEN", data.token);
         userStore.updateUserBaseInfo(data); // 更新用户信息

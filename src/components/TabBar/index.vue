@@ -1,57 +1,63 @@
 <template>
-  <view class="tab-bar">
-    <template v-for="(item, i) in allTabBarData" :key="i">
-      <view
-        :class="[
-          'tab-item',
-          item.path == tabBarStore.currentTabInfo.path ? 'active' : '',
-        ]"
-        v-if="item.type !== 'constom'"
-        @click="tabChange(item)"
-      >
-        <image
-          :src="
-            item.path == tabBarStore.currentTabInfo.path
-              ? item.selectedIconPath
-              : item.iconPath
-          "
-          mode="aspectFit"
-          class="tab-icon"
-        />
-        <text class="tab-text">{{ item.text }}</text>
-      </view>
-      <view v-else class="tab-item appointment" @click="tabChange(item)">
-        <view class="appointment-btn">
-          <text>{{ item.text }}</text>
+  <view class="tab-bar-container safe-bottom">
+    <view class="tab-bar-content flex w-full">
+      <template v-for="(item, i) in allTabBarData" :key="i">
+        <view
+          :class="[
+            'tab-item',
+            item.path == tabBarStore.currentTabInfo.path ? 'active' : '',
+          ]"
+          v-if="item.type !== 'constom'"
+          @click="tabChange(item)"
+        >
+          <image
+            :src="
+              item.path == tabBarStore.currentTabInfo.path
+                ? item.selectedIconPath
+                : item.iconPath
+            "
+            mode="aspectFit"
+            class="tab-icon"
+          />
+          <text class="tab-text">{{ item.text }}</text>
         </view>
-      </view>
-    </template>
+        <view v-else class="tab-item appointment" @click="tabChange(item)">
+          <view class="appointment-btn">
+            <text>{{ item.text }}</text>
+          </view>
+        </view>
+      </template>
+    </view>
   </view>
 </template>
 
 <script setup lang="ts">
 import { allTabBarData } from "@/config";
 import { useTabBarStore } from "@/store";
+import { Native, JUMP_TYPE } from "@/utils";
 const tabBarStore = useTabBarStore();
 // tab 配置
 
 const tabChange = (item: any) => {
   tabBarStore.setTabBar(item);
-  uni.navigateTo({ url: item.path });
+  Native.push(JUMP_TYPE.SELF, { url: item.path });
 };
 </script>
 
 <style lang="scss">
 /* 底部导航样式 */
-.tab-bar {
+.tab-bar-container {
   position: fixed;
+  box-sizing: border-box;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100rpx;
-  display: flex;
+
   background-color: #fff;
   border-top: 1rpx solid #eee;
+}
+.tab-bar-content {
+  height: 100rpx;
 }
 
 .tab-item {

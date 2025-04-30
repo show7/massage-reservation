@@ -53,12 +53,12 @@ const state = reactive({
   storeList: [],
   locationMap: {
     0: {
-      latitude: 31.005669,
-      longitude: 112.2014,
+      latitude: 30.999323,
+      longitude: 112.194956,
     },
     1: {
-      latitude: 31.04958,
-      longitude: 112.214595,
+      latitude: 31.043277,
+      longitude: 112.208431,
     },
   },
 });
@@ -83,12 +83,17 @@ const gotoPage = (item, i) => {
     });
     return;
   }
-  Map.openMap(
-    state.locationMap[i].latitude,
-    state.locationMap[i].longitude,
-    item.storeName,
-    "GCJ-02"
-  );
+  uni.openLocation({
+    name: item.storeName,
+    latitude: state.locationMap[i].latitude,
+    longitude: state.locationMap[i].longitude,
+  });
+  // Map.openMap(
+  //   state.locationMap[i].latitude,
+  //   state.locationMap[i].longitude,
+  //   item.storeName,
+  //   "GCJ-02"
+  // );
 };
 
 onMounted(() => {

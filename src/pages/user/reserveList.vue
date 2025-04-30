@@ -1,5 +1,5 @@
 <template>
-  <view class="quotation-component bg-green-light px-24">
+  <view class="quotation-component bg-green-light px-24 safe-bottom">
     <view class="flex flex-col gap-20 pt-50">
       <view
         class="bg-white py-24 px-30 rounded-20 text-24 box-border mt-50"
