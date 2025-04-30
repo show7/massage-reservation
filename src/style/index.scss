@@ -36,3 +36,10 @@ view {
 .uni-picker {
   font-size: 16px !important;
 }
+.picker-text {
+  color: #000000;
+}
+
+.picker-text.placeholder {
+  color: #999999;
+}
