@@ -2,13 +2,13 @@
   <view v-if="state.visible" class="dialog-mask" @click="handleMaskClick">
     <view class="dialog-container">
       <view class="dialog-title" v-if="state.title">{{ state.title }}</view>
-      <view
-        class="dialog-message"
-        v-if="state.message"
-        v-html="state.message"
-      ></view>
+      <view class="dialog-message" v-if="state.message">
+        <view v-html="state.message"></view>
+      </view>
+      <view v-else class="dialog-message">
+        <slot v-if="$slots.default"></slot>
+      </view>
 
-      <slot class="dialog-message"></slot>
       <view class="dialog-buttons">
         <view
           size="mini"

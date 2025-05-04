@@ -112,7 +112,7 @@
         </view>
         <view class="popup-body">
           <view
-            v-for="(item, index) in therapistList"
+            v-for="(item, index) in state.therapistList"
             :key="index"
             class="popup-item"
             @click="selectTherapist(item)"
@@ -144,7 +144,7 @@
     </uni-popup>
   </view>
   <Dialog ref="DialogRef">
-    <view class="text-info text-28 py-24 lin">
+    <view class="text-info text-28 py-24 text-left">
       <view>预约时间：{{ formData.workDate }}</view>
       <view>开始时间：{{ state.selectTeacherInfo.startWorkTime }}</view>
       <view>结束时间：{{ state.selectTeacherInfo.endWorkTime }}</view>
@@ -160,9 +160,11 @@ import { Native, JUMP_TYPE } from "@/utils";
 import request from "@/api";
 const state = reactive({
   userInfo: {},
+  projectName: "",
   projectList: [],
   workDate: "",
   showAppointmentGrid: false,
+  therapistList: [],
   appointmentList: [],
   selectTeacherInfo: {},
 });
@@ -307,8 +309,7 @@ const getProjectData = async () => {
     console.error("请求失败：", err);
   }
 };
-const reservation = async (item) => {
-  console.log(item);
+const reservation = async (item: any) => {
   const params = {
     workId: item.workId,
   };
@@ -325,13 +326,12 @@ const reservation = async (item) => {
       title: `您已预约成功`,
       icon: "none",
     });
-    console.log("请求成功：", data);
   } catch (err) {
     console.error("请求失败：", err);
   }
 };
 onLoad((options) => {
-  if (options.userInfo) {
+  if (options?.userInfo) {
     const userInfo = JSON.parse(options.userInfo);
     state.userInfo = userInfo;
     state.projectName = userInfo.projectName;
