@@ -156,6 +156,7 @@ const getData = async () => {
     pageNo,
     pageSize,
   };
+
   const {
     data: { beanList = [], ...arg },
   }: any = await request.sendRequestByKey("GET_TECH_RESRVATION_LIST", params);
