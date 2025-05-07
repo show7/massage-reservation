@@ -182,41 +182,6 @@ const getData = async () => {
     "GET_RESRVATION_LIST",
     params
   );
-  data =  [
-          {
-            projectName: '肩颈放松按摩',
-            workNums: 'WX001',
-            createTime: dayjs().subtract(5, 'day').format('YYYY-MM-DD HH:mm:ss'),
-            workDate: dayjs().add(1, 'day').format('YYYY-MM-DD'),
-            startWorkTime: '14:00',
-            endWorkTime: '15:00',
-            techName: '张三',
-            storeName: '悦康养生馆-市中心店',
-            reservationStatus: 0, // 0=未完成, 1=已完成, 2=已取消
-          },
-          {
-            projectName: '全身经络疏通',
-            workNums: 'WX002',
-            createTime: dayjs().subtract(2, 'day').format('YYYY-MM-DD HH:mm:ss'),
-            workDate: dayjs().add(2, 'day').format('YYYY-MM-DD'),
-            startWorkTime: '10:00',
-            endWorkTime: '11:30',
-            techName: '李四',
-            storeName: '悦康养生馆-北门店',
-            reservationStatus: 1, 
-          },
-          {
-            projectName: '足疗养生',
-            workNums: 'WX003',
-            createTime: dayjs().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss'),
-            workDate: dayjs().add(3, 'day').format('YYYY-MM-DD'),
-            startWorkTime: '16:00',
-            endWorkTime: '17:00',
-            techName: '王五',
-            storeName: '悦康养生馆-南门店',
-            reservationStatus: 2, 
-          },
-        ]
   state.tabData.push(...data);
   setLoadMoreStatus("noMore");
   pagination.create(arg);
@@ -227,9 +192,8 @@ const goPage = (item:object,key: string) => {
     reserveInfo: "/pages/user/reserveInfo",
     dpInfo: "/pages/user/dpInfo",
   };
-  const itemStr = encodeURIComponent(JSON.stringify(item));
   Native.push(JUMP_TYPE.SELF, {
-    url: `${pageMap[key as keyof typeof pageMap]}?item=${itemStr}`,
+    url: `${pageMap[key as keyof typeof pageMap]}?reservationId=${item.reservationId}`,
   });
 };
 const cancel = async (item) => {

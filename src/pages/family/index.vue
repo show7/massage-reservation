@@ -2,26 +2,22 @@
   <view class="container">
     <!-- 家人列表 -->
     <scroll-view class="family-list" scroll-y="true">
-      <view v-for="(member, index) in familyList" :key="index" class="family-card">
+      <view v-for="(member, index) in familyList" :key="index"   class="family-card">
         <view class="info">
           <view class="row">
-            <text class="label">姓名：</text>
+            <text class="label">称呼：</text>
             <text class="value">{{ member.name }}</text>
-            <text class="label">关系：</text>
-            <text class="value">{{ member.relation }}</text>
-          </view>
-          <view class="row">
             <text class="label">性别：</text>
-            <text class="value">{{ member.gender }}</text>
-            <text class="label">年龄：</text>
+            <text class="value">{{ member.gender ? '男' : '女' }}</text>
+              <text class="label">出生日期：</text>
             <text class="value">{{ member.age }}</text>
           </view>
         </view>
+        <view class="actions">
+          <button class="edit-icon-btn" @click="editMember(member)">编辑</button>
+          <button class="delete-icon-btn" @click="delMember(member)">删除</button>
+        </view>
 
-        <!-- 编辑按钮 -->
-        <button class="edit-icon-btn" @click="() => editMember(index)">
-          编辑
-        </button>
       </view>
 
       <view v-if="familyList.length === 0" class="empty">
@@ -38,22 +34,42 @@
 
 <script setup>
 // 引入组合式API
-import { reactive } from 'vue'
+import { ref } from 'vue'
+import request from "@/api";
+import { onShow } from "@dcloudio/uni-app";
 
 // 家人列表数据
-const familyList = reactive([
-  { name: '爸爸', gender: '男', age: '50', relation: '父亲' },
-  { name: '妈妈', gender: '女', age: '48', relation: '母亲' },
-  { name: '宝宝', gender: '男', age: '2', relation: '儿子' }
-])
-
+const familyList = ref([])
+// 表单提交
+const getList = async () => {
+  const {data} = await request.sendRequestByKey('F_LIST');
+  familyList.value = data
+};
 // 编辑成员
-const editMember = (index) => {
-  const member = familyList[index]
-  const query = `index=${index}&name=${member.name}&gender=${member.gender}&age=${member.age}&relation=${member.relation}`
+const editMember = (member) => {
+  const query = `name=${member.name}&gender=${member.gender}&age=${member.age}&familyId=${member.familyId}`
   uni.navigateTo({
     url: `/pages/family/edit?${query}`
   })
+}
+
+const delMember = async (member) => {
+  console.log(`11112222->`,member)
+
+  uni.showModal({
+    title: '确认删除',
+    content: `确定要删除【${member.name}】吗？`,
+    success: async (res) => {
+      if (res.confirm) {
+        await request.sendRequestByKey('F_DELETE', { familyId: member.familyId });
+        await getList(); // 或手动 splice
+        uni.showToast({
+          title: '已删除',
+          icon: 'success'
+        });
+      }
+    }
+  });
 }
 
 // 添加成员
@@ -62,6 +78,9 @@ const addMember = () => {
     url: `/pages/family/edit`
   })
 }
+onShow(() => {
+  getList();
+});
 </script>
 
 <style scoped>
@@ -87,8 +106,7 @@ const addMember = () => {
   border-radius: 12rpx;
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
 .info {
@@ -100,32 +118,39 @@ const addMember = () => {
 .row {
   display: flex;
   align-items: center;
+  
   margin-bottom: 6rpx;
 }
 
 .label {
   font-size: 26rpx;
   color: #999;
-  width: 100rpx;
+  margin: 20rpx;
   text-align: right;
 }
 .value {
   font-size: 28rpx;
   font-weight: 500;
   color: #333;
-  width: 100rpx;
   text-align: left;
+}
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;
+  margin: 20rpx;
 }
 
 .edit-icon-btn {
-  width: 150rpx;
+  width: 180rpx;
   margin: 0 auto;
-  height: 70rpx;
-  line-height: 70rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   background: linear-gradient(135deg, #66b1ff, #409eff);
   color: #ffffff;
-  border-radius: 45rpx;
+  border-radius:15rpx;
   font-size: 32rpx;
+  margin-right: 15rpx;
   text-align: center;
   box-shadow: 0 8rpx 16rpx rgba(102, 177, 255, 0.4);
   display: block;
@@ -135,6 +160,26 @@ const addMember = () => {
   transform: scale(0.96);
   box-shadow: 0 4rpx 8rpx rgba(102, 177, 255, 0.3);
 }
+.delete-icon-btn {
+  width: 180rpx;
+  margin: 0 auto;
+  height: 50rpx;
+  line-height: 50rpx;
+  background: linear-gradient(135deg, #ff7875, #ff4d4f);
+  color: #ffffff;
+  border-radius:15rpx;
+  font-size: 32rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 16rpx rgba(255, 77, 79, 0.3);
+  display: block;
+  border: none;
+}
+.delete-icon-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 4rpx 8rpx rgba(255, 77, 79, 0.2);
+}
+
+
 
 .empty {
   text-align: center;

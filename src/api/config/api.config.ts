@@ -72,14 +72,31 @@ const API_CONFIG: ApiConfigItem[] = [
     desc: "我的预约列表",
     key: "GET_RESRVATION_LIST",
   },
-  ///kt/app/tech/reserver/reservation/list
   {
     url: "/kt/app/tech/reserver/reservation/list",
     methods: "POST",
     desc: "技师预约列表",
     key: "GET_TECH_RESRVATION_LIST",
   },
+  {
+    url: "/kt/app/custom/case/kt/add",
+    methods: "POST",
+    desc: "问题描述",
+    key: "QT_ADD",
+  },
+  {
+    url: "/kt/app/custom/case/kt/list",
+    methods: "POST",
+    desc: "问题描述列表",
+    key: "QT_LIST",
+  },
 
+  {
+    url: "/app/tech/reserver/case/byId",
+    methods: "get",
+    desc: "问题描述详情",
+    key: "QT_INFO",
+  },
   {
     url: "/kt/app/custom/reservation/cancel",
     methods: "POST",
@@ -92,6 +109,37 @@ const API_CONFIG: ApiConfigItem[] = [
     desc: "发送验证码",
     key: "SEND_SMS",
   },
+  {
+    url: "/kt/app/family/edit",
+    methods: "POST",
+    desc: "新增或编辑家人信息",
+    key: "FADD_EDIT",
+  },
+  {
+    url: "/kt/app/family/delete",
+    methods: "GET",
+    desc: "删除家人信息",
+    key: "F_DELETE",
+  },
+  {
+    url: "/kt/app/family/list",
+    methods: "GET",
+    desc: "查询家人信息",
+    key: "F_LIST",
+  },
+  {
+    url: "/kt/app/custom/case/kt/add",
+    methods: "POST",
+    desc: "问题描述",
+    key: "QUESTION_ADD",
+  },
+  {
+    url: "/kt/app/family/edit",
+    methods: "POST",
+    desc: "新增或编辑家人信息",
+    key: "QUESTION_ADD",
+  },
+  
 ];
 
 export default API_CONFIG;

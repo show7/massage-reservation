@@ -10,7 +10,7 @@
           range-key="name"
           @change="onFamilyChange"
         >
-          <view class="picker-text">
+          <view  :style="{ color: !state.familyId ? '#999999' : '#333' }">
             {{ selectedFamily?.name || '请选择家人' }}
           </view>
         </picker>
@@ -20,7 +20,8 @@
       <view class="form-item">
         <text class="label">备注信息</text>
         <textarea
-          v-model="remark"
+          v-model="state.caseDesc"
+           :style="{ color: !state.caseDesc ? '#999999' : '#333' }"
           class="textarea"
           placeholder="请输入备注内容..."
           maxlength="200"
@@ -34,25 +35,25 @@
 
 <script setup>
 // Vue组合式API
-import { ref } from 'vue'
-import { onLoad } from "@dcloudio/uni-app";
+import { ref,reactive } from 'vue'
+import { onLoad,onShow } from "@dcloudio/uni-app";
 import { Native, JUMP_TYPE } from "@/utils";
+import request from "@/api";
 // 家人列表
-const familyList = ref([
-  // { name: '爸爸', relation: '父亲' },
-  // { name: '妈妈', relation: '母亲' },
-  // { name: '宝宝', relation: '儿子' },
-])
-
-// 当前选择的家人
+const familyList = ref([])
 const selectedFamily = ref(null)
 
 // 备注内容
-const remark = ref('')
+const state = reactive({
+  caseDesc:'',
+  familyId:'',
+  reservationId:'',
+})
 
 // 选择家人事件
 const onFamilyChange = (e) => {
   const index = e.detail.value
+  state.familyId = familyList.value[index].familyId
   selectedFamily.value = familyList.value[index]
 }
 const addMember = () => {
@@ -62,33 +63,49 @@ const addMember = () => {
 }
 
 // 提交预约
-const submitReserve = () => {
-  if (!selectedFamily.value) {
+const submitReserve =async () => {
+  if (!state.familyId) {
     uni.showToast({ title: '请选择家人', icon: 'none' })
     return
   }
-
-  const data = {
-    family: selectedFamily.value,
-    remark: remark.value,
+  let params = {
+      ...state,
   }
+ await request.sendRequestByKey('QT_ADD',params);
 
-  console.log('提交预约数据', data)
 
-  uni.showToast({ title: '预约成功！', icon: 'success' })
+  uni.showToast({ title: '提交成功！', icon: 'success' })
 
-  setTimeout(() => {
-    uni.navigateBack()
-  }, 1000)
+  // setTimeout(() => {
+  //   uni.navigateBack()
+  // }, 1000)
 }
-onLoad(async (options) => {
-  console.log(111)
-  // 获取传递过来的 item 参数，并解析
-  const item = JSON.parse(decodeURIComponent(options.item));
+const getList = async () => {
+  const { data } = await request.sendRequestByKey('F_LIST');
+  familyList.value = data
+  
+};
 
-  // 在这里你可以使用 item 对象
-  console.log(item); // 打印查看
- 
+const getqtList = async () => {
+  const { data } = await request.sendRequestByKey('QT_INFO',{reservationId:state.reservationId});
+  if(data.length){
+    let { reservationId,familyId,caseDesc} = data[0]
+    data[0].name = data[0].nickName
+    selectedFamily.value = data[0]
+    state.reservationId = reservationId
+    state.familyId = familyId
+    state.caseDesc = caseDesc
+
+  }
+};
+onShow(()=>{
+    getList();
+})
+onLoad((options) => {
+      if(options && options.reservationId){
+        state.reservationId =  options.reservationId
+        getqtList()
+      }
 });
 </script>
 
