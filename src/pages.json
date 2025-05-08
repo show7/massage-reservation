@@ -10,8 +10,7 @@
         "navigationBarTitleText": "首页",
         "navigationStyle": "custom"
       }
-    },
-    
+    },  
     {
       "path": "pages/reserve/index",
       "style": {
@@ -69,7 +68,12 @@
         "navigationStyle": "custom"
       }
     },
-
+    {
+      "path": "pages/tcpro/index",
+      "style": {
+        "navigationBarTitleText": "技师预约列表"
+      }
+    },
     {
       "path": "pages/user/index",
       "style": {

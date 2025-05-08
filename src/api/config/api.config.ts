@@ -79,6 +79,13 @@ const API_CONFIG: ApiConfigItem[] = [
     key: "GET_TECH_RESRVATION_LIST",
   },
   {
+    url: "/app/tech/reserver/reservation/list",
+    methods: "POST",
+    desc: "非登录技师预约列表",
+    key: "GET_NOTECH_RESRVATION_LIST",
+  },
+  
+  {
     url: "/kt/app/custom/case/kt/add",
     methods: "POST",
     desc: "问题描述",
@@ -90,7 +97,7 @@ const API_CONFIG: ApiConfigItem[] = [
     desc: "问题描述列表",
     key: "QT_LIST",
   },
-
+  
   {
     url: "/app/tech/reserver/case/byId",
     methods: "get",
