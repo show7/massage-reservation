@@ -10,18 +10,23 @@
         :key="i"
         @click="playAudio(item.outBytes, i)"
       >
-        <view
-          class="flex-th-td-item flex justify-between items-center text-24 border-b-info pb-14"
-        >
+        <view class="flex-th-td-item flex gap-20 items-center text-24">
           <view class="text-left text-24 text-black-little font-bold">
             {{ item.projectName }}
           </view>
+          <view class="text-center text-24 text-black-little">
+            {{ item.startWorkTime }}开始
+          </view>
+          <view class="text-center text-24 text-black-little">
+            {{ item.projectTime - 1 }}分钟
+          </view>
+
           <view class="text-center text-24 text-black-little">
             {{ item.workDate }}
           </view>
         </view>
 
-        <view
+        <!-- <view
           class="flex justify-between items-center text-black text-24 py-10"
         >
           <view class="flex-col-w-1 text-left"> 开始时间：</view>
@@ -45,7 +50,7 @@
           <view class="flex-col-w-3 text-right text-black-little">
             {{ item.projectTime - 1 }}分钟
           </view>
-        </view>
+        </view> -->
 
         <!-- <view
           class="flex-th-td-item flex justify-end items-center text-black-little text-24 border-t-info my-14 pt-14"
@@ -59,7 +64,10 @@
         </view> -->
       </view>
     </view>
-    <view v-if="!state.tabData.length && status !== 'loading'">
+    <view
+      class="overflow-hidden"
+      v-if="!state.tabData.length && status !== 'loading'"
+    >
       <view
         class="bg-white rounded-10 px-26 my-50 text-24 flex flex-col gap-20"
         :style="`height:${contentViewHeight}`"
@@ -157,9 +165,12 @@ const getData = async () => {
     pageSize,
   };
 
-  const {
-    data: { beanList = [], ...arg },
-  }: any = await request.sendRequestByKey("GET_TECH_RESRVATION_LIST", params);
+ 
+  const { data }: any = await request.sendRequestByKey(
+    "GET_TECH_RESRVATION_LIST",
+    params
+  );
+  const { beanList = [], ...arg } = data || {};
   state.tabData = beanList;
   setLoadMoreStatus(state.tabData.length >= arg.tr ? "noMore" : "more");
   pagination.create({
