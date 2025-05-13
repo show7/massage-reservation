@@ -2,103 +2,61 @@
   <view class="container">
     <view class="form-section">
       <view class="form-item">
-        <text class="label">选择家人</text>
-        <picker
-          mode="selector"
-          v-if="familyList.length"
-          :range="familyList"
-          range-key="name"
-          @change="onFamilyChange"
-        >
-          <view class="picker-text">
-            {{ selectedFamily?.name || '请选择sss家人' }}
+        <text class="label">家人</text>
+          <view  :style="{ color: '#000' }">
+            {{ state.nickName}}
           </view>
-        </picker>
-        <button class="add-btn" v-else @click="addMember">添加33家人</button>
       </view>
 
       <view class="form-item">
-        <text class="label">备注信息</text>
-        <textarea
-          v-model="remark"
-          class="textarea"
-          placeholder="请输入备注内容..."
-          maxlength="200"
-        />
+        <text class="label">问题描述</text>
+        <view  :style="{ color: '#000' }">
+            {{ state.caseDesc}}
+        </view>
+      </view>
+      <view class="form-item">
+        <text class="label">技师建议</text>
+        <view  :style="{ color: '#000' }">
+            {{ state.answers || '暂无'}}
+        </view>
       </view>
     </view>
-
-    <button class="submit-btn" @click="submitReserve">提交</button>
   </view>
 </template>
 
 <script setup>
 // Vue组合式API
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { onLoad,onShow } from "@dcloudio/uni-app";
-import { Native, JUMP_TYPE } from "@/utils";
 import request from "@/api";
-// 家人列表
-const familyList = ref([])
-
-// 当前选择的家人
-const selectedFamily = ref(null)
 
 // 备注内容
-const remark = ref('')
-
-// 选择家人事件
-const onFamilyChange = (e) => {
-  const index = e.detail.value
-  selectedFamily.value = familyList.value[index]
-}
-const addMember = () => {
-   Native.push(JUMP_TYPE.SELF, {
-    url: `/pages/family/edit`,
-  });
-}
-
-// 提交预约
-const submitReserve = () => {
-  if (!selectedFamily.value) {
-    uni.showToast({ title: '请选择家人', icon: 'none' })
-    return
-  }
-
-  const data = {
-    family: selectedFamily.value,
-    remark: remark.value,
-  }
-
-  console.log('提交预约数据', data)
-
-  uni.showToast({ title: '预约成功！', icon: 'success' })
-
-  setTimeout(() => {
-    uni.navigateBack()
-  }, 1000)
-}
-const getList = async () => {
-  const { data } = await request.sendRequestByKey('F_LIST');
-  console.log(`output->`,data)
-  familyList.value = data
-};
-onShow(()=>{
-  getList();
+const state = reactive({
+  caseDesc:'',
+  nickName:'',
+  answers:'',
+  reservationId:''
 })
-onLoad(async (options) => {
-  // try {
-  //   if (options.item) {
-  //     const item = JSON.parse(decodeURIComponent(options.item));
-  //     console.log('传参 item:', item);
-  //     // 你可以这里设置一些初始状态，比如 selectedFamily.value = item
-  //   }
-  // } catch (e) {
-  //   console.warn('item 参数解析失败:', e);
-  // }
 
-  // 不管有没有 item 参数，都应该执行获取家人列表
- 
+
+const getqtList = async () => {
+  const { data } = await request.sendRequestByKey('QT_INFO',{reservationId:state.reservationId});
+  console.log(`output->`,data)
+  if(data && data.length){
+    let { answers,nickName,caseDesc} = data[0]
+    state.nickName = nickName
+    state.caseDesc = caseDesc
+    state.answers = answers
+  }
+};
+// onShow(()=>{
+//     getqtList();
+// })
+onLoad((options) => {
+      if(options && options.reservationId){
+        state.reservationId = options.reservationId
+        getqtList()
+      }
 });
 </script>
 

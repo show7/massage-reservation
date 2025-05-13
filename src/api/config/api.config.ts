@@ -79,6 +79,18 @@ const API_CONFIG: ApiConfigItem[] = [
     key: "GET_TECH_RESRVATION_LIST",
   },
   {
+    url: "/kt/tech/answer/add",
+    methods: "POST",
+    desc: "填写技师方案",
+    key: "ADD_ANSWER",
+  },
+  {
+    url: "/kt/app/custom/case/kt/sendCustInfoToTech",
+    methods: "get",
+    desc: "推送技师",
+    key: "SEND_TE",
+  },
+  {
     url: "/app/tech/reserver/reservation/list",
     methods: "POST",
     desc: "非登录技师预约列表",

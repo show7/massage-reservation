@@ -1,6 +1,6 @@
 <template>
   <view class="quotation-component bg-green-light px-24 safe-bottom">
-    <view class="flex flex-col gap-20 pt-50">
+    <view class="flex flex-col gap-20 pt-30">
       <view
         class="bg-white py-24 px-30 rounded-20 text-24 box-border mt-50"
         v-for="(item, i) in state.tabData"
@@ -71,7 +71,7 @@
         >
         
          <view
-          class="flex justify-end items-center gap-20  mt-20 pt-20"
+          class="flex justify-end items-center gap-10  mt-10 pt-20"
         >
           <view
             v-if="!item.reservationStatus"
@@ -91,6 +91,13 @@
             @click="goPage(item,'reserveInfo')"
           >
             详情
+          </view>
+           <view
+            v-if="state.isWb"
+            class="btn-normal bg-zse"
+            @click="sendTeacher(item)"
+          >
+            推送
           </view>
         </view>
 
@@ -116,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { onShow, onPullDownRefresh, onReachBottom } from "@dcloudio/uni-app";
+import { onShow,onLoad, onPullDownRefresh, onReachBottom } from "@dcloudio/uni-app";
 
 import { useUserStore, useSystemStore } from "@/store";
 import { useLoadMore, usePagination, useQuerySelect } from "@/hooks";
@@ -131,6 +138,7 @@ const { status, setLoadMoreStatus } = useLoadMore();
 const pagination = usePagination();
 const DialogRef = ref<any>(null);
 const state = reactive({
+  isWb:false,
   tabData: [],
   headerHieght: 120,
   statusColorMap: {
@@ -162,7 +170,6 @@ onReachBottom(() => {
   pagination.state.pageNum++;
   getData();
 });
-
 const search = () => {
   console.log("search");
   state.tabData = [];
@@ -185,6 +192,18 @@ const getData = async () => {
   state.tabData.push(...data);
   setLoadMoreStatus("noMore");
   pagination.create(arg);
+};
+
+const sendTeacher = async ({reservationId}) => {
+try{
+  await request.sendRequestByKey(
+    "SEND_TE",
+    {reservationId}
+  );
+  uni.showToast({ title: '推送成功！', icon: 'success' })
+}catch(err){
+   uni.showToast({ title: '推送失败', icon: 'error' })
+}
 };
 
 const goPage = (item:object,key: string) => {
@@ -234,6 +253,9 @@ onPullDownRefresh(() => {
 onShow(() => {
   init();
 });
+onLoad((options) => {
+   state.isWb = options && options.from === 'qrscan'
+});
 </script>
 
 <style lang="scss">
@@ -250,11 +272,11 @@ onShow(() => {
   gap: 20rpx;
 }
 .btn-normal {
-  padding: 10rpx 24rpx;
+  padding: 10rpx 15rpx;
   border-radius: 10rpx;
   font-size: 28rpx;
   color: #ffffff;
-  min-width: 160rpx;
+  min-width: 140rpx;
   text-align: center;
 }
 
@@ -268,7 +290,9 @@ onShow(() => {
 .bg-green {
   background: #67c23a; /* 绿色，用于"详情" */
 }
-
+.bg-zse {
+  background: #a88bdb; /* 蓝色，用于"问题描述" */
+}
 /* 如果需要 hover 点击效果可以加 */
 .btn-normal:active {
   opacity: 0.8;

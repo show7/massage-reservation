@@ -1,26 +1,26 @@
 <template>
   <view class="container">
     <!-- 顶部项目信息 -->
-    <view class="header">
-      <view class="info-box">项目：小儿推拿</view>
-      <view class="info-box">时长：10分钟</view>
-      <view class="info-box">编号：9号</view>
+    <view class="header" v-if="recordList.length">
+      <view class="info-box">项目<br><text style="margin-top:10rpx;">{{recordList[0].projectName}}</text> </view>
+      <view class="info-box">时长<br><text style="margin-top:10rpx;">{{recordList[0].projectName}}</text> </view>
+      <view class="info-box">编号<br><text style="margin-top:10rpx;">{{recordList[0].reservationId}}</text> </view>
     </view>
 
     <!-- 历史记录标题 -->
     <view class="section-title">历史记录</view>
 
     <!-- 历史记录列表 -->
-    <view class="record-item" v-for="(item, index) in recordList" :key="index">
-      <view class="record-header">
+    <view class="record-item" v-for="(item, index) in recordList" :key="index" v-show="index !== 0">
+      <view class="record-header" >
         <text class="cell">时间</text>
         <text class="cell">项目</text>
         <text class="cell">时长</text>
       </view>
-      <view class="record-body">
+      <view class="record-body"  >
         <view class="textarea-box">
           <text class="label">问题描述</text>
-          <view class="suggestion-content">{{ item.problemDesc }}</view>
+          <view class="suggestion-content">{{ item.caseDesc }}</view>
         </view>
 
         <view class="textarea-box">
@@ -29,7 +29,7 @@
             class="suggestion-content"
             
           >
-            {{ item.suggestion || '暂无' }}
+            {{ item.answers || '暂无' }}
           </view>
         </view>
       </view>
@@ -50,44 +50,40 @@
 
 <script setup>
 import { ref } from "vue"
-import { onShow } from "@dcloudio/uni-app";
+import { onLoad } from "@dcloudio/uni-app";
 import request from "@/api";
-const recordList = ref([
-  {
-    time: '2025-05-08',
-    project: '小儿推拿',
-    duration: '10分钟',
-    problemDesc: '肩颈紧张，稍微有点怕痒肩颈紧张，稍微有点怕痒肩颈紧张，稍微有点怕痒...肩颈紧张，稍微有点怕痒肩颈紧张，稍微有点怕痒肩颈紧张，稍微有点怕痒...肩颈紧张，稍微有点怕痒肩颈紧张，稍微有点怕痒肩颈紧张，稍微有点怕痒...',
-    suggestion: '',
-  },
-  {
-    time: '2025-05-06',
-    project: '推背',
-    duration: '15分钟',
-    problemDesc: '推拿中哭闹，疑似不适应',
-    suggestion: '',
-  }
-])
+const reservationId = ref('')
+const recordList = ref([])
 
 const inputText = ref('')
 const getList = async () => {
-  const { data } = await request.sendRequestByKey('GET_NOTECH_RESRVATION_LIST', { "pageNo": 1,
-  "pageSize": 100,
-  "techId": 1});
-  console.log(`output->`,data)
-  // familyList.value = data
+  const { data } = await request.sendRequestByKey('QT_INFO', {reservationId:reservationId.value});
+  recordList.value = data
 };
 const submitSuggestion = async () => {
   if (!inputText.value.trim()) {
     uni.showToast({ title: '内容不能为空', icon: 'none' })
     return
   }
+  if(!recordList.value.length){
+     uni.showToast({ title: '请联系管理员', icon: 'none' })
+    return 
+  }
+  let params = {
+    "answerDesc":  inputText.value,
+    "reservationId": reservationId.value,
+    "caseId": recordList.value[0].caseId || '',
+    "techId": recordList.value[0].nowTechId || ''
+    
+  }
+  await request.sendRequestByKey('ADD_ANSWER',params );
   inputText.value = ''
   uni.showToast({ title: '回答成功！', icon: 'success' })
 }
-onShow(()=>{
-  getList();
-})
+onLoad((options) => {
+   reservationId.value = options && options.reservationId
+   getList();
+});
 </script>
 
 <style scoped>
