@@ -13,7 +13,7 @@ const API_CONFIG: ApiConfigItem[] = [
     desc: "登陆",
     key: "LOGIN_WX",
   },
-
+  
   {
     url: "/app/banner/list",
     methods: "get",
@@ -115,6 +115,12 @@ const API_CONFIG: ApiConfigItem[] = [
     methods: "get",
     desc: "问题描述详情",
     key: "QT_INFO",
+  },
+  {
+    url: "/kt/app/custom/case/byId",
+    methods: "get",
+    desc: "预约描述详情",
+    key: "QT_INFO_PHONE",
   },
   {
     url: "/kt/app/custom/reservation/cancel",

@@ -71,7 +71,7 @@ const onGenderChange = (e) => {
 const onSubmit = async () => {
   console.log('保存的表单数据:', form.value);
 
-  if (!form.value.name || !form.value.age || genderIndex.value === -1) {
+  if (!form.value.name  || genderIndex.value === -1) {
     uni.showToast({
       title: '请填写完整信息',
       icon: 'none'
@@ -101,7 +101,7 @@ onLoad((options) => {
   if (options.name || options.age || options.gender || options.familyId) {
     form.value = {
       name: options.name || '',
-      age: options.age || '',
+      age: options.age == 'null' || null || '' ? '' : options.age,
       gender: options.gender === '1' || options.gender === '男' ? '男' : '女',
       familyId: options.familyId || ''
     };

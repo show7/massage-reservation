@@ -38,8 +38,11 @@ const useSystemStore = defineStore(
         console.log("登录成功：", data);
         Storage.set("USER_TOKEN", data.token);
         userStore.updateUserBaseInfo(data); // 更新用户信息
-        uni.reLaunch({
-          url: data.isTech ? "/pages/teacher/index" : "/pages/index/index",
+        // uni.reLaunch({
+        //   url: data.isTech ? "/pages/teacher/index" : "/pages/index/index",
+        // });
+        uni.navigateBack({
+          delta: 1  // 返回上一级页面
         });
         return Promise.resolve(data);
       } catch (err) {

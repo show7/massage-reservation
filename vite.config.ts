@@ -30,6 +30,9 @@ export default defineConfig({
     }),
   ],
   server: {
+    watch: {
+      usePolling: true, // 使用轮询，兼容性更好
+    },
     proxy: {
       // 配置代理规则
       "/api/": {

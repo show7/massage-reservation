@@ -16,9 +16,9 @@ const BASE_URL_MAP: BaseUrlMap = {
   //[Env.DEV]: "/api",
   // [Env.DEV]: "https://ktapp.kangtetuina.com",
   [Env.DEV]: "http://101.43.57.96:8081",
-  [Env.UAT]: "https://ktapp.kangtetuina.com",
+  [Env.UAT]: "http://101.43.57.96:8081",
   //[Env.UAT]: "http://47.104.228.224",
-  [Env.PRE]: "https://ktapp.kangtetuina.com",
+  [Env.PRE]: "http://101.43.57.96:8081",
   [Env.PRO]: "https://ktapp.kangtetuina.com",
 };
 

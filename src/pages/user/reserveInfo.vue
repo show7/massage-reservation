@@ -16,8 +16,8 @@
       </view>
       <view class="form-item">
         <text class="label">技师建议</text>
-        <view  :style="{ color: '#000' }">
-            {{ state.answers || '暂无'}}
+        <view  :style="{ color: '#000' }" v-for="(item,index) in state.answers" :key="index">
+            {{ item.techName}}：{{item.answerDesc}}
         </view>
       </view>
     </view>
@@ -34,13 +34,13 @@ import request from "@/api";
 const state = reactive({
   caseDesc:'',
   nickName:'',
-  answers:'',
+  answers:[],
   reservationId:''
 })
 
 
 const getqtList = async () => {
-  const { data } = await request.sendRequestByKey('QT_INFO',{reservationId:state.reservationId});
+  const { data } = await request.sendRequestByKey('QT_INFO_PHONE',{reservationId:state.reservationId});
   console.log(`output->`,data)
   if(data && data.length){
     let { answers,nickName,caseDesc} = data[0]

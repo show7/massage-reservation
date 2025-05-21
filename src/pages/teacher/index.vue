@@ -12,17 +12,7 @@
       >
         <view class="flex-th-td-item flex gap-20 items-center text-24">
           <view class="text-left text-24 text-black-little font-bold">
-            {{ item.projectName }}
-          </view>
-          <view class="text-center text-24 text-black-little">
-            {{ item.startWorkTime }}开始
-          </view>
-          <view class="text-center text-24 text-black-little">
-            {{ item.projectTime - 1 }}分钟
-          </view>
-
-          <view class="text-center text-24 text-black-little">
-            {{ item.workDate }}
+            {{ item.projectName }} {{ item.startWorkTime }}开始 时长{{ item.projectTime - 1 }}分钟 预约时间{{ item.workDate }}
           </view>
         </view>
 
@@ -171,7 +161,7 @@ const getData = async () => {
     params
   );
   const { beanList = [], ...arg } = data || {};
-  state.tabData = beanList;
+  state.tabData = beanList
   setLoadMoreStatus(state.tabData.length >= arg.tr ? "noMore" : "more");
   pagination.create({
     total: arg.tr,

@@ -81,22 +81,30 @@ const submitReserve =async () => {
   // }, 1000)
 }
 const getList = async () => {
-  const { data } = await request.sendRequestByKey('F_LIST');
+ const { data } = await request.sendRequestByKey('F_LIST');
   familyList.value = data
-  
 };
 
 const getqtList = async () => {
-  const { data } = await request.sendRequestByKey('QT_INFO',{reservationId:state.reservationId});
-  if(data.length){
+  try{
+  const { data } = await request.sendRequestByKey('QT_INFO_PHONE',{reservationId:state.reservationId});
+  if(data && data.length){
     let { reservationId,familyId,caseDesc} = data[0]
     data[0].name = data[0].nickName
-    selectedFamily.value = data[0]
+    selectedFamily.value = data[0] 
     state.reservationId = reservationId
     state.familyId = familyId
     state.caseDesc = caseDesc
-
+  }else{
+    console.log(`output->`,familyList.value)
+     if(!familyList.value.length) return
+    selectedFamily.value = familyList.value[0] 
+    state.familyId = familyList.value[0].familyId
   }
+  }catch(err){
+    console.log(err)
+  }
+
 };
 onShow(()=>{
     getList();
