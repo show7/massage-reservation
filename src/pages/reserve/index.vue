@@ -243,7 +243,7 @@ onBeforeMount(async () => {
 /* 右侧内容区样式 */
 .content-area {
   flex: 1;
-  padding: 30rpx 30rpx 150rpx 30rpx;
+  padding: 30rpx 30rpx 200rpx 30rpx;
 }
 
 .service-description {

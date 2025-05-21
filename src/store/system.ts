@@ -41,9 +41,16 @@ const useSystemStore = defineStore(
         // uni.reLaunch({
         //   url: data.isTech ? "/pages/teacher/index" : "/pages/index/index",
         // });
-        uni.navigateBack({
-          delta: 1  // 返回上一级页面
-        });
+        data.isTech
+          ? uni.reLaunch({
+              url: "/pages/teacher/index",
+            })
+          : uni.navigateBack({
+              delta: 1,
+              fail: (err) => {
+                uni.reLaunch({ url: "/pages/index/index" });
+              },
+            });
         return Promise.resolve(data);
       } catch (err) {
         console.error("请求失败：", err);

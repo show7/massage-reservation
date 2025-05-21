@@ -5,7 +5,10 @@
     </text>
   </view>
 
-  <view v-if="!state.pagetype && projectList && projectList.length">
+  <view
+    class="flex flex-col gap-20"
+    v-if="!state.pagetype && projectList && projectList.length"
+  >
     <view
       class="service-card"
       v-for="(item, i) in projectList"

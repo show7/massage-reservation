@@ -46,9 +46,10 @@ request.setResponseInterceptor((res) => {
       title: `登录已过期，请重新登录`,
       icon: "none",
     });
-    uni.reLaunch({
+    uni.navigateTo({
       url: "/pages/login/index",
     });
+    return Promise.reject(`${res.data.state}: ${res.data.message}`);
   } else {
     uni.showToast({
       title: `${res.data.message}`,
