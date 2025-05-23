@@ -49,6 +49,7 @@
             available: item.workStatus === 0,
             booked: item.workStatus === 1,
             pending: item.workStatus === -3,
+            disabled: item.workStatus === 3,
           }"
           @click="handleAppointmentClick(item)"
         >
@@ -474,6 +475,10 @@ onLoad((options) => {
 }
 .grid-item.pending {
   background-color: #ffa500;
+}
+.grid-item.disabled {
+  color: #333 !important;
+  background-color: #ddd;
 }
 
 .number {
