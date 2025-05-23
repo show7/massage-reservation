@@ -19,7 +19,7 @@ const BASE_URL_MAP: BaseUrlMap = {
   [Env.UAT]: "http://101.43.57.96:8081",
   //[Env.UAT]: "http://47.104.228.224",
   [Env.PRE]: "http://101.43.57.96:8081",
-  [Env.PRO]: "https://ktapp.kangtetuina.com",
+  [Env.PRO]: "http://101.43.57.96:8081",
 };
 
 // 定义获取基础 URL 的函数，并指定参数和返回值的类型
