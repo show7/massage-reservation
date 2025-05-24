@@ -82,8 +82,19 @@
       <view
         class="legend-item my-appointment text-white px-14 py-6 text-24 rounded-10"
         @click="goPage('reserveList')"
+        v-if="userStore.userInfo.token"
       >
         <text>我的预约</text>
+      </view>
+
+      <view v-else>
+        <button
+          class="my-yuyue-btn"
+          open-type="getPhoneNumber"
+          @getphonenumber="getphonenumber"
+        >
+          我的预约
+        </button>
       </view>
     </view>
 
@@ -158,7 +169,13 @@
 <script lang="ts" setup>
 import { onLoad } from "@dcloudio/uni-app";
 import { Native, JUMP_TYPE } from "@/utils";
+import { useSystemStore, useUserStore } from "@/store";
+import { promisiy } from "@/utils";
 import request from "@/api";
+
+const systemStore = useSystemStore();
+
+const userStore = useUserStore();
 const state = reactive({
   userInfo: {},
   projectName: "",
@@ -331,6 +348,18 @@ const reservation = async (item: any) => {
     console.error("请求失败：", err);
   }
 };
+const getphonenumber = async ({ detail: { code: phoneCode = "" } }) => {
+  if (!phoneCode) return;
+  try {
+    const { code }: any = await promisiy(uni.login)({
+      provider: "weixin",
+    });
+    await systemStore.logIn({ phoneCode, code }, "/pages/user/reserveList");
+  } catch (error) {
+    console.error(error, "error");
+  }
+};
+
 onLoad((options) => {
   if (options?.userInfo) {
     const userInfo = JSON.parse(options.userInfo);
@@ -565,5 +594,12 @@ onLoad((options) => {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.my-yuyue-btn {
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  color: #fff;
+  background-color: #5ecfde;
 }
 </style>

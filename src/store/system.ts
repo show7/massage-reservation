@@ -26,7 +26,7 @@ const useSystemStore = defineStore(
       busAllergyOptions: [] as any[], // 过敏源列表
     });
 
-    const logIn = async (params: any) => {
+    const logIn = async (params: any, pagePath: string) => {
       try {
         // #ifdef MP-WEIXIN
         const URL = "LOGIN_WX";
@@ -41,16 +41,23 @@ const useSystemStore = defineStore(
         // uni.reLaunch({
         //   url: data.isTech ? "/pages/teacher/index" : "/pages/index/index",
         // });
-        data.isTech
-          ? uni.reLaunch({
-              url: "/pages/teacher/index",
-            })
-          : uni.navigateBack({
-              delta: 1,
-              fail: (err) => {
-                uni.reLaunch({ url: "/pages/index/index" });
-              },
-            });
+        if (pagePath) {
+          uni.navigateTo({
+            url: pagePath,
+          });
+        } else {
+          data.isTech
+            ? uni.reLaunch({
+                url: "/pages/teacher/index",
+              })
+            : uni.navigateBack({
+                delta: 1,
+                fail: (err) => {
+                  uni.reLaunch({ url: "/pages/index/index" });
+                },
+              });
+        }
+
         return Promise.resolve(data);
       } catch (err) {
         console.error("请求失败：", err);
