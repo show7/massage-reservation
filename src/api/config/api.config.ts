@@ -36,14 +36,14 @@ const API_CONFIG: ApiConfigItem[] = [
   {
     url: "/app/work/tech/byProject",
     methods: "POST",
-    desc: "根据项目查询技师",
+    desc: "根据项目查询",
     key: "GET_TECH_LIST_PROJECT",
   },
   ///app/work/tech/byStore
   {
     url: "/app/work/tech/byStore",
     methods: "POST",
-    desc: "根据门店查询技师",
+    desc: "根据门店查询",
     key: "GET_TECH_LIST_STORE",
   },
   ///app/work/detail
@@ -51,7 +51,7 @@ const API_CONFIG: ApiConfigItem[] = [
   {
     url: "/app/work/detail",
     methods: "POST",
-    desc: "查询技师排班信息",
+    desc: "查询排班信息",
     key: "GET_WORK_DETAIL",
   },
   {
@@ -75,25 +75,25 @@ const API_CONFIG: ApiConfigItem[] = [
   {
     url: "/kt/app/tech/reserver/reservation/list",
     methods: "POST",
-    desc: "技师预约列表",
+    desc: "预约列表",
     key: "GET_TECH_RESRVATION_LIST",
   },
   {
     url: "/kt/tech/answer/add",
     methods: "POST",
-    desc: "填写技师方案",
+    desc: "填写方案",
     key: "ADD_ANSWER",
   },
   {
     url: "/kt/app/custom/case/kt/sendCustInfoToTech",
     methods: "get",
-    desc: "推送技师",
+    desc: "推送",
     key: "SEND_TE",
   },
   {
     url: "/app/tech/reserver/reservation/list",
     methods: "POST",
-    desc: "非登录技师预约列表",
+    desc: "非登录预约列表",
     key: "GET_NOTECH_RESRVATION_LIST",
   },
   
