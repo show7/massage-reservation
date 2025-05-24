@@ -44,7 +44,7 @@
         <view
           class="flex justify-between items-center text-black text-24 py-10"
         >
-          <view class="flex-col-w-1 text-left">技师名称：</view>
+          <view class="flex-col-w-1 text-left">名称：</view>
           <view class="flex-col-w-3 text-right">{{ item.techName }}</view>
         </view>
         <view

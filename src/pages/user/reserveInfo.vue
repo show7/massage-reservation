@@ -15,7 +15,7 @@
         </view>
       </view>
       <view class="form-item">
-        <text class="label">技师建议</text>
+        <text class="label">建议</text>
         <view  :style="{ color: '#000' }" v-for="(item,index) in state.answers" :key="index">
             {{ item.techName}}：{{item.answerDesc}}
         </view>

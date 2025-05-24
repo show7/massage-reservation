@@ -16,7 +16,7 @@
         </view>
 
         <view class="textarea-box">
-          <text class="label">技师建议</text>
+          <text class="label">建议</text>
           <view   v-for="(items,index) in item.answers" :key="index">
             {{ items.techName}}：{{items.answerDesc}}
           </view>
