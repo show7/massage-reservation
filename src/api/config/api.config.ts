@@ -109,6 +109,12 @@ const API_CONFIG: ApiConfigItem[] = [
     desc: "问题描述列表",
     key: "QT_LIST",
   },
+    {
+    url: "/kt/app/account/list",
+    methods: "get",
+    desc: "积分",
+    key: "GETJF",
+  },
   
   {
     url: "/app/tech/reserver/case/byId",
